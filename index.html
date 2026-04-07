@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pro Product Gallery | A To Z</title>
+    <style>
+        :root {
+            --bg-color: #f4f4f9;
+            --card-bg: #ffffff;
+            --nav-bg: #1a1a1a;
+            --accent-color: #ff9900;
+            --text-main: #333;
+            --text-light: #ffffff;
+            --shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .dark-mode {
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --nav-bg: #000000;
+            --text-main: #f1f5f9;
+            --shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            transition: background 0.4s ease;
+            line-height: 1.6;
+        }
+
+        /* ================= NAVBAR ================= */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 5%;
+            background: var(--nav-bg);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--accent-color);
+            letter-spacing: 1px;
+        }
+
+        .filter-buttons {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 8px 18px;
+            border-radius: 25px;
+            border: 2px solid transparent;
+            cursor: pointer;
+            font-weight: 600;
+            background: #333;
+            color: white;
+            transition: 0.3s;
+        }
+
+        .btn:hover,
+        .btn.active {
+            background: var(--accent-color);
+            color: #000;
+        }
+
+        .mode-toggle {
+            padding: 8px 15px;
+            border-radius: 20px;
+            border: none;
+            cursor: pointer;
+            background: var(--accent-color);
+            font-weight: bold;
+        }
+
+        /* ================= GALLERY GRID ================= */
+        .container {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        /* ================= PRODUCT CARD ================= */
+        .item {
+            position: relative;
+            background: var(--card-bg);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .item img {
+            width: 100%;
+            height: 250px;
+            object-fit: contain;
+            padding: 10px;
+            transition: transform 0.5s ease;
+        }
+
+        .item:hover img {
+            transform: scale(1.08);
+        }
+
+        /* ================= OVERLAY EFFECT ================= */
+        .overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 20px;
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+            color: white;
+            text-align: center;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: 0.4s ease;
+        }
+
+        .item:hover .overlay {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .overlay h4 {
+            font-size: 1.2rem;
+            margin-bottom: 5px;
+        }
+
+        .overlay p {
+            font-weight: bold;
+            color: var(--accent-color);
+            font-size: 1.1rem;
+        }
+
+        /* ================= RESPONSIVE ================= */
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+
+            .gallery {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header class="navbar">
+        <div class="logo">A To Z</div>
+
+        <nav class="filter-buttons">
+            <button class="btn active" onclick="filterItems('all', this)">All</button>
+            <button class="btn" onclick="filterItems('shoes', this)">Shoes</button>
+            <button class="btn" onclick="filterItems('watch', this)">Watch</button>
+            <button class="btn" onclick="filterItems('laptop', this)">Laptop</button>
+            <button class="btn" onclick="filterItems('beauty', this)">Beauty</button>
+        </nav>
+
+        <button class="mode-toggle" id="themeBtn">🌙 Dark</button>
+    </header>
+
+    <main class="container">
+      <div class="gallery" >
+
+
+    <div class="item beauty"><img src="23.jpg"><div class="overlay"><h4>Sunscreen SPF 50</h4><p>₹650</p></div></div>
+    <div class="item shoes"><img src="34.jpg"><div class="overlay"><h4>Reebok Classic</h4><p>₹5,599</p></div></div>
+    <div class="item watch"><img src="2.jpg"><div class="overlay"><h4>Titan Edge</h4><p>₹12,999</p></div></div>
+    <div class="item laptop"><img src="14.jpg"><div class="overlay"><h4>Asus ROG</h4><p>₹1,35,000</p></div></div>
+
+    <div class="item shoes"><img src="31.jpg"><div class="overlay"><h4>Air Jordan</h4><p>₹12,495</p></div></div>
+    <div class="item beauty"><img src="29.jpg"><div class="overlay"><h4>Moisturizer</h4><p>₹450</p></div></div>
+    <div class="item watch"><img src="8.jpg"><div class="overlay"><h4>Seiko Sports</h4><p>₹22,500</p></div></div>
+    <div class="item laptop"><img src="11.jpg"><div class="overlay"><h4>MacBook Pro</h4><p>₹1,69,900</p></div></div>
+
+    <div class="item shoes"><img src="36.jpg"><div class="overlay"><h4>Skechers GoWalk</h4><p>₹4,299</p></div></div>
+    <div class="item beauty"><img src="25.jpg"><div class="overlay"><h4>Keratin Shampoo</h4><p>₹1,150</p></div></div>
+    <div class="item watch"><img src="5.jpg"><div class="overlay"><h4>G-Shock</h4><p>₹9,295</p></div></div>
+    <div class="item laptop"><img src="18.jpg"><div class="overlay"><h4>MSI Katana</h4><p>₹78,000</p></div></div>
+
+    <div class="item shoes"><img src="39.jpg"><div class="overlay"><h4>Asics Running</h4><p>₹14,999</p></div></div>
+    <div class="item beauty"><img src="21.jpg"><div class="overlay"><h4>Vitamin C Serum</h4><p>₹899</p></div></div>
+    <div class="item watch"><img src="10.jpg"><div class="overlay"><h4>Tommy Hilfiger</h4><p>₹11,200</p></div></div>
+    <div class="item laptop"><img src="13.jpg"><div class="overlay"><h4>HP Spectre</h4><p>₹1,15,000</p></div></div>
+
+    <div class="item shoes"><img src="33.jpg"><div class="overlay"><h4>Puma Ferrari</h4><p>₹6,499</p></div></div>
+    <div class="item beauty"><img src="30.jpg"><div class="overlay"><h4>Perfume</h4><p>₹1,800</p></div></div>
+    <div class="item watch"><img src="1.jpg"><div class="overlay"><h4>Rolex Datejust</h4><p>₹5,45,000</p></div></div>
+    <div class="item laptop"><img src="17.jpg"><div class="overlay"><h4>Surface Laptop</h4><p>₹99,990</p></div></div>
+
+    <div class="item shoes"><img src="37.jpg"><div class="overlay"><h4>Vans Old Skool</h4><p>₹3,999</p></div></div>
+    <div class="item beauty"><img src="24.jpg"><div class="overlay"><h4>Lipstick</h4><p>₹499</p></div></div>
+    <div class="item watch"><img src="6.jpg"><div class="overlay"><h4>Fastrack</h4><p>₹2,495</p></div></div>
+    <div class="item laptop"><img src="12.jpg"><div class="overlay"><h4>Dell XPS</h4><p>₹1,45,000</p></div></div>
+
+    <div class="item shoes"><img src="35.jpg"><div class="overlay"><h4>New Balance</h4><p>₹8,999</p></div></div>
+    <div class="item beauty"><img src="22.jpg"><div class="overlay"><h4>Olay Cream</h4><p>₹2,999</p></div></div>
+    <div class="item watch"><img src="4.jpg"><div class="overlay"><h4>Fossil Chrono</h4><p>₹14,495</p></div></div>
+    <div class="item laptop"><img src="15.jpg"><div class="overlay"><h4>Lenovo Legion</h4><p>₹1,05,000</p></div></div>
+
+    <div class="item shoes"><img src="38.jpg"><div class="overlay"><h4>Converse</h4><p>₹4,499</p></div></div>
+    <div class="item beauty"><img src="27.jpg"><div class="overlay"><h4>Nail Paint</h4><p>₹250</p></div></div>
+    <div class="item watch"><img src="3.jpg"><div class="overlay"><h4>Apple Watch</h4><p>₹41,900</p></div></div>
+    <div class="item laptop"><img src="16.jpg"><div class="overlay"><h4>Acer Predator</h4><p>₹95,000</p></div></div>
+
+    <div class="item shoes"><img src="32.jpg"><div class="overlay"><h4>Adidas Ultraboost</h4><p>₹18,999</p></div></div>
+    <div class="item beauty"><img src="26.jpg"><div class="overlay"><h4>Face Wash</h4><p>₹350</p></div></div>
+    <div class="item watch"><img src="9.jpg"><div class="overlay"><h4>Noise Watch</h4><p>₹3,499</p></div></div>
+    <div class="item laptop"><img src="19.jpg"><div class="overlay"><h4>Galaxy Book</h4><p>₹1,22,000</p></div></div>
+
+    <div class="item shoes"><img src="40.jpg"><div class="overlay"><h4>Under Armour</h4><p>₹11,999</p></div></div>
+    <div class="item beauty"><img src="28.jpg"><div class="overlay"><h4>Eye Liner</h4><p>₹399</p></div></div>
+    <div class="item watch"><img src="7.jpg"><div class="overlay"><h4>Samsung Watch</h4><p>₹29,999</p></div></div>
+    <div class="item laptop"><img src="20.jpg"><div class="overlay"><h4>Razer Blade</h4><p>₹1,08,299</p></div></div>
+
+
+</div>
+    </main>
+
+    <script>
+        function filterItems(category, btn) {
+            
+            document.querySelectorAll('.btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            const items = document.querySelectorAll(".item");
+
+            items.forEach(item => {
+                
+                if (category === "all" || item.classList.contains(category)) {
+                    item.style.display = "block";
+                } else {
+                    item.style.display = "none";
+                }
+            });
+        }
+
+    
+        const themeBtn = document.getElementById("themeBtn");
+
+        themeBtn.addEventListener("click", () => {
+            document.body.classList.toggle("dark-mode");
+
+            if (document.body.classList.contains("dark-mode")) {
+                themeBtn.innerText = "☀️ Light";
+                localStorage.setItem("theme", "dark");
+            } else {
+                themeBtn.innerText = "🌙 Dark";
+                localStorage.setItem("theme", "light");
+            }
+        });
+
+        
+        if (localStorage.getItem("theme") === "dark") {
+            document.body.classList.add("dark-mode");
+            themeBtn.innerText = "☀️ Light";
+        }
+    </script>
+</body>
+
+</html>
